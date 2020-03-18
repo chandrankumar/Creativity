@@ -22,8 +22,8 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 
-	public List<Product> retrieveProductDetails() {
-		return productDao.retrieveProductDetails();
+	public List<Product> retrieveProductDetails(String searchTxt) {
+		return productDao.retrieveProductDetails(searchTxt);
 	}
 
 	

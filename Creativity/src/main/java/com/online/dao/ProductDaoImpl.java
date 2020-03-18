@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -26,15 +27,17 @@ public class ProductDaoImpl implements ProductDao {
 		entityManager.merge(product);
 	}
 
-	public List<Product> retrieveProductDetails() {
+	public List<Product> retrieveProductDetails(String searchTxt) {
 
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Product> criteriaQuery = builder.createQuery(Product.class);
 		Root<Product> root = criteriaQuery.from(Product.class);
 		criteriaQuery.select(root);
+		if(StringUtils.isNoneEmpty(searchTxt)) {
+			criteriaQuery.where(builder.like(root.get("brandName"),"%"+searchTxt+"%"));
+		}
 		TypedQuery<Product> query = entityManager.createQuery(criteriaQuery);
 		List<Product> resultList = query.getResultList();
-		System.out.println(resultList.get(0).toString());
 		return resultList;
 	}
 

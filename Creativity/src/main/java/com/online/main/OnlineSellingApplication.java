@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 
 @EnableAutoConfiguration
-@ComponentScan("com.online")
+@ComponentScan(basePackages="com.online")
 @EntityScan(basePackages= {"com.online.model"})
 @SpringBootApplication
 public class OnlineSellingApplication {
